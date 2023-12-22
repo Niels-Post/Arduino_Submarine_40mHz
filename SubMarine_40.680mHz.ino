@@ -147,7 +147,7 @@ public:
             sendFrame(frame);
         }
 
-        for(uint8_ t i = 0; i < 3; i++) {
+        for (uint8_t i = 0; i < 3; i++) {
             delay(35);
             sendStop();
         }
@@ -162,9 +162,29 @@ void setup(void) {
     Serial.begin(9600);
     Submarine sub = Submarine();
 
+    char read;
     while (true) {
-        sub.sendCommand(SubmarineCommand::FORWARD, 3000);
-        delay(2000);
+        read = Serial.read();
+        switch (read) {
+            case 'f':
+                sub.sendCommand(SubmarineCommand::FORWARD, 3000);
+                break;
+            case 'b':
+                sub.sendCommand(SubmarineCommand::BACK, 3000);
+                break;
+            case 'd':
+                sub.sendCommand(SubmarineCommand::DOWN, 3000);
+                break;
+            case 'u':
+                sub.sendCommand(SubmarineCommand::UP, 3000);
+                break;
+            case 'l':
+                sub.sendCommand(SubmarineCommand::LEFT, 3000);
+                break;
+            case 'r':
+                sub.sendCommand(SubmarineCommand::RIGHT, 3000);
+                break;
+        }
     }
 }
 
